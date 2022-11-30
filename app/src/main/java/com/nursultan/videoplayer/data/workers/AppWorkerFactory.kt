@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
 
 class AppWorkerFactory @Inject constructor(
     private val workersProvider:
-    @JvmSuppressWildcards Map<KClass<out ListenableWorker>, Provider<WorkerInnerFactory>>
+    @JvmSuppressWildcards Map<Class<out ListenableWorker>, Provider<WorkerInnerFactory>>
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -19,7 +19,7 @@ class AppWorkerFactory @Inject constructor(
     ): ListenableWorker? {
         return when (workerClassName) {
             RefreshDataWorker::class.qualifiedName -> {
-                return workersProvider[RefreshDataWorker::class]?.get()
+                return workersProvider[RefreshDataWorker::class.java]?.get()
                     ?.create(appContext, workerParameters)
             }
             else -> null

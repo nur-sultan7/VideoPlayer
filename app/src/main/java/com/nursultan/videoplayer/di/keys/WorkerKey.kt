@@ -1,4 +1,4 @@
-package com.nursultan.videoplayer.di
+package com.nursultan.videoplayer.di.keys
 
 import androidx.work.ListenableWorker
 import dagger.MapKey

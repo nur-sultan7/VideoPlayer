@@ -19,7 +19,7 @@ class RefreshDataWorker(
 ) : CoroutineWorker(context, workerParameters) {
     override suspend fun doWork(): Result {
         val videosList = apiService.getVideos()
-        dao.insertVideos(mapper.mapVideoDtoListToDbModel(videosList))
+        dao.insertVideos(mapper.mapVideoDtoListToDbModel(videosList.toList()))
         return Result.success()
     }
 

@@ -3,7 +3,7 @@ package com.nursultan.videoplayer.data.network.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class VideoDto(
+open class VideoDto(
     @SerializedName("id")
     @Expose
     val id: String,

@@ -6,10 +6,10 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("backgrounds")
-    fun getVideos(
+    suspend fun getVideos(
         @Query(QUERY_GROUP) group: String = "video",
         @Query(QUERY_CATEGORY_ID) categoryId: Int = 1
-    ): List<VideoDto>
+    ): Array<VideoDto>
 
     companion object {
         const val QUERY_GROUP = "group"

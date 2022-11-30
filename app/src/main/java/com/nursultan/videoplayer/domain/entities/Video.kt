@@ -1,6 +1,6 @@
 package com.nursultan.videoplayer.domain.entities
 
-class Video(
+data class Video(
     val id: String,
     val fileUrl: String?,
     val smallThumbnailUrl: String?,

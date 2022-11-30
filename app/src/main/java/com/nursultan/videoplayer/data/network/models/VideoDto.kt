@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 class VideoDto(
     @SerializedName("id")
     @Expose
-    val id: String? = null,
+    val id: String,
 
     @SerializedName("group")
     @Expose

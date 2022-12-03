@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.nursultan.videoplayer.databinding.FragmentVideoPlayerBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.nursultan.videoplayer.databinding.FragmentVideoListBinding
 import javax.inject.Inject
 
-class VideoPlayerFragment: Fragment() {
-    private val binding: FragmentVideoPlayerBinding
-        get() = _binding ?: throw RuntimeException("Fragment Video Player biding is null")
-    private var _binding: FragmentVideoPlayerBinding? = null
+class VideoListFragment : Fragment() {
+    private val binding: FragmentVideoListBinding
+        get() = _binding ?: throw RuntimeException("FragmentVideoListBinding is null")
+    private var _binding: FragmentVideoListBinding? = null
 
     private val component by lazy {
         (requireActivity().application as VideoPlayerApp)
             .component
-            .videoPlayerSubComponent()
+            .videoListSubComponent()
             .create()
     }
 
@@ -29,7 +30,7 @@ class VideoPlayerFragment: Fragment() {
         ViewModelProvider(
             this,
             viewModelFactory
-        )[VideoPlayerViewModel::class.java]
+        )[VideoListViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,18 +43,31 @@ class VideoPlayerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentVideoPlayerBinding.inflate(inflater, container, false)
+        _binding = FragmentVideoListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
+        setRV()
     }
 
     private fun setObservers() {
-        viewModel.getVideos().observe(viewLifecycleOwner){
+        viewModel.getVideos().observe(viewLifecycleOwner) {
             Log.d("VideoPlayerFragment", it.toString())
+        }
+    }
+
+    private fun setRV() {
+        with(binding) {
+            rvVideoList.layoutManager =
+                LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+
         }
     }
 

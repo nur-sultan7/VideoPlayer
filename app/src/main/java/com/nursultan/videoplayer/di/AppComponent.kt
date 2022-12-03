@@ -9,7 +9,7 @@ import dagger.Component
 @Component(modules = [DataModule::class, WorkerModule::class, ViewModelModule::class])
 interface AppComponent {
     fun inject(app: VideoPlayerApp)
-    fun videoPlayerSubComponent(): VideoPlayerComponent.Factory
+    fun videoListSubComponent(): VideoListComponent.Factory
 
     @Component.Factory
     interface Factory {

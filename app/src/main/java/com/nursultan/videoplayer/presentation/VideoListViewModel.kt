@@ -5,9 +5,9 @@ import com.nursultan.videoplayer.domain.GetVideosUseCase
 import com.nursultan.videoplayer.domain.LoadVideosUseCase
 import javax.inject.Inject
 
-class VideoPlayerViewModel @Inject constructor(
+class VideoListViewModel @Inject constructor(
     private val getVideosUseCase: GetVideosUseCase,
-    private val loadVideosUseCase: LoadVideosUseCase
+    loadVideosUseCase: LoadVideosUseCase
 ) : ViewModel() {
     init {
         loadVideosUseCase.invoke()

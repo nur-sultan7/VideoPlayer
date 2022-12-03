@@ -1,14 +1,15 @@
 package com.nursultan.videoplayer.di
 
-import com.nursultan.videoplayer.presentation.VideoPlayerFragment
+import com.nursultan.videoplayer.presentation.VideoListFragment
 import dagger.Subcomponent
 
 @Subcomponent
-interface VideoPlayerComponent {
-    fun inject(fragment: VideoPlayerFragment)
+interface VideoListComponent {
+    fun inject(fragment: VideoListFragment)
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(): VideoPlayerComponent
+        fun create(): VideoListComponent
+
     }
 }

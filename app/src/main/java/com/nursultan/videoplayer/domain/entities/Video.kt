@@ -4,4 +4,7 @@ data class Video(
     val id: String,
     val fileUrl: String?,
     val smallThumbnailUrl: String?,
+    val smallPosterUrl: String?,
+    val posterUrl: String?,
+    val enabled: Boolean
 )

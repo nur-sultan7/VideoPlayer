@@ -31,4 +31,8 @@ class RepositoryImpl @Inject constructor(
             mapper.mapVideosDbModelListToEntity(it)
         }
     }
+
+    override suspend fun setVideoEnabled(id: String) {
+        dao.setVideoEnabledById(id)
+    }
 }

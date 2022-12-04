@@ -12,4 +12,5 @@ class VideoDbModel(
     val smallThumbnailUrl: String?,
     val posterUrl: String?,
     val smallPosterUrl: String?,
+    val enabled: Boolean = false
 )

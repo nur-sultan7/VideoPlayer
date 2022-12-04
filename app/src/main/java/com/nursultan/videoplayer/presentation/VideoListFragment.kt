@@ -1,7 +1,6 @@
 package com.nursultan.videoplayer.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nursultan.videoplayer.databinding.FragmentVideoListBinding
+import com.nursultan.videoplayer.presentation.adapters.VideoListAdapter
 import javax.inject.Inject
 
 class VideoListFragment : Fragment() {
@@ -25,6 +25,8 @@ class VideoListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var adapter: VideoListAdapter
 
     private val viewModel by lazy {
         ViewModelProvider(
@@ -51,11 +53,18 @@ class VideoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
         setRV()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        adapter.onVideoClickListener = {
+            viewModel.setVideoEnabled(it)
+        }
     }
 
     private fun setObservers() {
         viewModel.getVideos().observe(viewLifecycleOwner) {
-            Log.d("VideoPlayerFragment", it.toString())
+            adapter.submitList(it)
         }
     }
 
@@ -67,7 +76,8 @@ class VideoListFragment : Fragment() {
                     LinearLayoutManager.HORIZONTAL,
                     false
                 )
-
+            adapter = VideoListAdapter()
+            rvVideoList.adapter = adapter
         }
     }
 

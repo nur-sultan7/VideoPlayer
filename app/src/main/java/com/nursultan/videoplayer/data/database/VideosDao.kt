@@ -14,4 +14,7 @@ interface VideosDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVideos(videos: List<VideoDbModel>)
+
+    @Query("update videos set enabled = 1 where id = :id")
+    suspend fun setVideoEnabledById(id: String)
 }

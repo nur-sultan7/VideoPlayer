@@ -8,10 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nursultan.videoplayer.databinding.FragmentVideoListBinding
+import com.nursultan.videoplayer.domain.entities.Video
 import com.nursultan.videoplayer.presentation.adapters.VideoListAdapter
 import javax.inject.Inject
 
 class VideoListFragment : Fragment() {
+    interface VideoListItemClickListener {
+        fun onVideoItemClick(video: Video)
+        fun onVideoItemSecondClick()
+    }
+
     private val binding: FragmentVideoListBinding
         get() = _binding ?: throw RuntimeException("FragmentVideoListBinding is null")
     private var _binding: FragmentVideoListBinding? = null
@@ -58,7 +64,10 @@ class VideoListFragment : Fragment() {
 
     private fun setListeners() {
         adapter.onVideoClickListener = {
-
+            (requireActivity() as VideoListItemClickListener).onVideoItemClick(it)
+        }
+        adapter.onVideoSecondClickListener = {
+            (requireActivity() as VideoListItemClickListener).onVideoItemSecondClick()
         }
     }
 
@@ -85,4 +94,5 @@ class VideoListFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
 }

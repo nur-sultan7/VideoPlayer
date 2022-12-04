@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso
 
 class VideoListAdapter :
     ListAdapter<Video, VideoListAdapter.VideoViewHolder>(VideoItemDifCallBack()) {
-    var onVideoClickListener: ((id: String) -> Unit)? = null
+    var onVideoClickListener: ((video: Video) -> Unit)? = null
+    var onVideoSecondClickListener: (() -> Unit)? = null
     private var prevItemEnabledPosition: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
@@ -85,9 +86,11 @@ class VideoListAdapter :
                 if (video.enabled) {
                     video.enabled = false
                     prevItemEnabledPosition = null
+                    onVideoSecondClickListener?.invoke()
                 } else {
                     video.enabled = true
                     prevItemEnabledPosition = adapterPosition
+                    onVideoClickListener?.invoke(video)
                 }
                 notifyItemChanged(position)
             }

@@ -2,4 +2,6 @@
     <string name="app_name">Video Player</string>
     <string name="video_list_item_disabled">video list item disabled</string>
     <string name="video_list_item_enabled">video list item enabled</string>
+    <string name="btn_text">Text</string>
+    <string name="choose_video">Choose video</string>
 </resources>

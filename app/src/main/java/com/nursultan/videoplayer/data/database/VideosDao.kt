@@ -12,9 +12,6 @@ interface VideosDao {
     @Query("select * from videos")
     fun getAllVideos(): LiveData<List<VideoDbModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertVideos(videos: List<VideoDbModel>)
-
-    @Query("update videos set enabled = 1 where id = :id")
-    suspend fun setVideoEnabledById(id: String)
 }

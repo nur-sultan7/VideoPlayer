@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso
 class VideoListAdapter :
     ListAdapter<Video, VideoListAdapter.VideoViewHolder>(VideoItemDifCallBack()) {
     var onVideoClickListener: ((id: String) -> Unit)? = null
+    private var prevItemEnabledPosition: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val binding = when (viewType) {
@@ -36,27 +37,7 @@ class VideoListAdapter :
         return VideoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
-        val video = getItem(position)
-        with(holder) {
-            when (binding) {
-                is ItemVideoListEnabledBinding -> {
-                    Picasso.get()
-                        .load(video.smallPosterUrl)
-                        .into(binding.ivVideoPoster)
-                }
-                is ItemVideoListDisabledBinding -> {
-                    Picasso.get()
-                        .load(video.smallPosterUrl)
-                        .into(binding.ivVideoPoster)
-                }
-            }
-            binding.root.setOnClickListener {
-                onVideoClickListener?.invoke(video.id)
-            }
-        }
 
-    }
 
     override fun getItemViewType(position: Int): Int {
         return if (getItem(position).enabled) ENABLED else DISABLED
@@ -75,6 +56,41 @@ class VideoListAdapter :
 
         override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean {
             return oldItem == newItem
+        }
+    }
+
+    override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
+        val video = getItem(position)
+        with(holder) {
+            when (binding) {
+                is ItemVideoListEnabledBinding -> {
+                    Picasso.get()
+                        .load(video.smallPosterUrl)
+                        .into(binding.ivVideoPoster)
+                }
+                is ItemVideoListDisabledBinding -> {
+                    Picasso.get()
+                        .load(video.smallPosterUrl)
+                        .into(binding.ivVideoPoster)
+                }
+            }
+            binding.root.setOnClickListener {
+                if (prevItemEnabledPosition != position) {
+                    prevItemEnabledPosition?.let {
+                        val prevItem = getItem(it)
+                        prevItem.enabled = false
+                        notifyItemChanged(it)
+                    }
+                }
+                if (video.enabled) {
+                    video.enabled = false
+                    prevItemEnabledPosition = null
+                } else {
+                    video.enabled = true
+                    prevItemEnabledPosition = adapterPosition
+                }
+                notifyItemChanged(position)
+            }
         }
     }
 }

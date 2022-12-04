@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.nursultan.videoplayer.data.database.models.VideoDbModel
 
-@Database(entities = [VideoDbModel::class], version = 2, exportSchema = false)
+@Database(entities = [VideoDbModel::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var db: AppDatabase? = null

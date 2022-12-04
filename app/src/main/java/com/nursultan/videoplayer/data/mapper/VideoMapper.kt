@@ -27,7 +27,6 @@ class VideoMapper @Inject constructor() {
                 smallThumbnailUrl = it.smallThumbnailUrl,
                 smallPosterUrl = it.smallPosterUrl,
                 posterUrl = it.posterUrl,
-                enabled = it.enabled
             )
         }
     }

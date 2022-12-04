@@ -6,5 +6,5 @@ data class Video(
     val smallThumbnailUrl: String?,
     val smallPosterUrl: String?,
     val posterUrl: String?,
-    val enabled: Boolean
+    var enabled: Boolean = false
 )

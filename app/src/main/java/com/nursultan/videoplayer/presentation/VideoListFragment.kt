@@ -58,7 +58,7 @@ class VideoListFragment : Fragment() {
 
     private fun setListeners() {
         adapter.onVideoClickListener = {
-            viewModel.setVideoEnabled(it)
+
         }
     }
 

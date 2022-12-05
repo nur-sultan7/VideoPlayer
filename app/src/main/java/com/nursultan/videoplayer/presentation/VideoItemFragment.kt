@@ -1,10 +1,12 @@
 package com.nursultan.videoplayer.presentation
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.nursultan.videoplayer.databinding.FragmentVideoItemBinding
@@ -66,7 +68,18 @@ class VideoItemFragment : Fragment() {
     }
 
     private fun launchVideoMode(videoBinding: FragmentVideoItemBinding) {
+        with(videoBinding) {
+            video?.let {
 
+                val uri = Uri.parse(it.fileUrl)
+                videoView.setVideoURI(uri)
+                val mediaController = MediaController(requireContext())
+                mediaController.setAnchorView(videoView)
+                mediaController.setMediaPlayer(videoView)
+                videoView.setMediaController(mediaController)
+                videoView.start()
+            }
+        }
     }
 
     private fun parseParam() {
